@@ -40,13 +40,13 @@ Chọn object đầu tiên bạn tự vẽ ở `medium_instance`, trước khi x
 
 Chọn một lỗi **có thật** trong bài. Nếu công cụ lỗi khiến bạn chưa sửa được, ghi rõ đã thử gì và cần coach hỗ trợ gì; không ghi “đã sửa” khi chưa sửa.
 
-- Task/ảnh/vùng: Task `cp2_slice`, ảnh `000000017627.jpg`, cụm 2 xe ô tô đỗ sát nhau ở khu vực trung tâm (xe sedan tối màu và xe station wagon màu trắng).
-- Lỗi thuộc loại: sai lớp / thiếu-thừa vật / gộp-tách / biên / phủ vùng / khác: gộp-tách (dính liền hai xe cùng class vào một mask).
-- Bằng chứng tôi nhìn thấy: Mask tự động ban đầu gộp chung cả 2 chiếc xe liền kề thành 1 object duy nhất do khoảng cách giữa hai xe rất hẹp và bóng râm dính liền nhau.
-- Quy tắc và hành động sửa: Theo quy tắc của `cp2_slice` ("adjacent same-class vehicles must be separate instances"), hai xe cạnh nhau phải tách thành hai instance độc lập. Tôi đã phóng to, dùng Eraser rạch đường phân cách dọc theo khe hở giữa hai thân xe và tạo thành 2 mask/object `car` riêng biệt.
-- Sau sửa đã Save và export lại chưa? Đã Save trên CVAT và export lại file `cp2_slice.zip` chuẩn COCO 1.0 vào thư mục `submissions/`.
+- Task/ảnh/vùng: Task `easy_semantic`, ảnh `817bca71-00000000.jpg` và `81ae7cbb-6bc63a4a.jpg`, khu vực nhà ở hai bên đường và thảm cây cỏ ven đường.
+- Lỗi thuộc loại: sai lớp / thiếu-thừa vật / gộp-tách / biên / phủ vùng / khác: thiếu-thừa vật / bỏ sót lớp (thiếu hoàn toàn lớp `building` và thiếu diện tích `vegetation`).
+- Bằng chứng tôi nhìn thấy: Khi rà soát lại bài, nhận thấy trong 2 ảnh khu dân cư có các dãy nhà ở rõ ràng nhưng chưa có pixel nào được gán cho nhãn `building`, diện tích cây cối (`vegetation`) mới chỉ vẽ vài vệt nhỏ, bỏ sót nhiều thảm cỏ và tán cây ven đường.
+- Quy tắc và hành động sửa: Mở lại task `easy_semantic` trên CVAT, dùng Polygon/Brush tô phủ kín các khối nhà dân cho class `building` và tô bổ sung các thảm cỏ, lùm cây xanh cho class `vegetation`.
+- Sau sửa đã Save và export lại chưa? Đã Save trên CVAT và export lại file `easy_semantic.zip` chuẩn định dạng `Segmentation mask 1.1` đè vào thư mục `submissions/`.
 
-Nếu bạn **đã xem Summary tự đánh giá trên GitHub Actions hoặc tự chạy script**, ghi ngắn một kết quả liên quan lỗi vừa sửa (ví dụ task, metric trước/sau nếu có): Đã chạy script `scripts/inspect_submissions.py` kiểm tra cấu trúc ZIP đạt `[OK]` với 15 annotations riêng biệt; chưa có điểm số (chờ release ground truth từ người phụ trách lớp). Scorecard ba tier tối đa **82**, không phải điểm cuối trên 100. Không tự ghi PASS/top 3/bonus; người phụ trách xác nhận theo tiêu chí lớp. Không đưa file ground truth vào fork.
+Nếu bạn **đã xem Summary tự đánh giá trên GitHub Actions hoặc tự chạy script**, ghi ngắn một kết quả liên quan lỗi vừa sửa (ví dụ task, metric trước/sau nếu có): Sau khi sửa và export lại, ảnh `817bca71-00000000` đã bổ sung 145.643 pixels và ảnh `81ae7cbb-6bc63a4a` bổ sung 73.207 pixels cho `building`, diện tích `vegetation` tăng lên rõ rệt; script `inspect_submissions.py` kiểm tra đạt chuẩn `[OK]`. Scorecard ba tier tối đa **82**, không phải điểm cuối trên 100. Không tự ghi PASS/top 3/bonus; người phụ trách xác nhận theo tiêu chí lớp. Không đưa file ground truth vào fork.
 
 ## 4. Ba ca chưa chắc hoặc đã cân nhắc
 
